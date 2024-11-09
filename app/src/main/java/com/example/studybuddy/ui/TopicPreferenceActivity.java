@@ -1,24 +1,27 @@
 package com.example.studybuddy.ui;
 
-import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.studybuddy.R;
+import com.example.studybuddy.data.database.DatabaseHelper;
 
 public class TopicPreferenceActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView textProgress;
     private Button buttonNext;
-    private RadioGroup radioGroupTopics;
+    private CheckBox checkComputerScience, checkBiology, checkChemistry, checkMathematics,
+            checkEngineering, checkPhysics, checkEnglish, checkFrench, checkHistory, checkPhilosophy;
     private int currentQuestion = 1;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +31,64 @@ public class TopicPreferenceActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textProgress = findViewById(R.id.textProgress);
         buttonNext = findViewById(R.id.buttonNext);
-        radioGroupTopics = findViewById(R.id.radioGroupTopics);
+
+        checkComputerScience = findViewById(R.id.checkComputerScience);
+        checkBiology = findViewById(R.id.checkBiology);
+        checkChemistry = findViewById(R.id.checkChemistry);
+        checkMathematics = findViewById(R.id.checkMathematics);
+        checkEngineering = findViewById(R.id.checkEngineering);
+        checkPhysics = findViewById(R.id.checkPhysics);
+        checkEnglish = findViewById(R.id.checkEnglish);
+        checkFrench = findViewById(R.id.checkFrench);
+        checkHistory = findViewById(R.id.checkHistory);
+        checkPhilosophy = findViewById(R.id.checkPhilosophy);
+
+        databaseHelper = new DatabaseHelper(this);
 
         buttonNext.setOnClickListener(v -> {
-            int selectedId = radioGroupTopics.getCheckedRadioButtonId();
-            if (selectedId != -1) {
-                RadioButton selectedRadioButton = findViewById(selectedId);
-                String selectedTopic = selectedRadioButton.getText().toString();
+            StringBuilder selectedTopics = new StringBuilder();
 
-                Toast.makeText(TopicPreferenceActivity.this, "Selected Topic: " + selectedTopic, Toast.LENGTH_SHORT).show();
+            if (checkComputerScience.isChecked()) selectedTopics.append("Computer Science, ");
+            if (checkBiology.isChecked()) selectedTopics.append("Biology, ");
+            if (checkChemistry.isChecked()) selectedTopics.append("Chemistry, ");
+            if (checkMathematics.isChecked()) selectedTopics.append("Mathematics, ");
+            if (checkEngineering.isChecked()) selectedTopics.append("Engineering, ");
+            if (checkPhysics.isChecked()) selectedTopics.append("Physics, ");
+            if (checkEnglish.isChecked()) selectedTopics.append("English, ");
+            if (checkFrench.isChecked()) selectedTopics.append("French, ");
+            if (checkHistory.isChecked()) selectedTopics.append("History, ");
+            if (checkPhilosophy.isChecked()) selectedTopics.append("Philosophy, ");
 
-                currentQuestion++;
-                if (currentQuestion <= 4) {
-                    ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", currentQuestion - 1, currentQuestion);
-                    progressAnimator.setDuration(500);  // Animation duration in milliseconds
-                    progressAnimator.start();
+            if (selectedTopics.length() > 0) {
+                selectedTopics.setLength(selectedTopics.length() - 2);
+            }
 
-                    textProgress.setText(currentQuestion + "/4");
-                } else {
-                    Toast.makeText(TopicPreferenceActivity.this, "All questions complete!", Toast.LENGTH_SHORT).show();
-                }
+            if (selectedTopics.length() > 0) {
+                Toast.makeText(TopicPreferenceActivity.this, "Selected Topics: " + selectedTopics.toString(), Toast.LENGTH_SHORT).show();
+                saveTopicToDatabase(selectedTopics.toString());
+
+                Intent intent = new Intent(TopicPreferenceActivity.this, StudyTimePreferenceActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(TopicPreferenceActivity.this, "No topics selected.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveTopicToDatabase(String topics) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("userEmail", null);
+
+        if (userEmail != null) {
+            boolean isSaved = databaseHelper.updateUserTopic(userEmail, topics);
+            if (isSaved) {
+                Toast.makeText(this, "Topics saved!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to save topics.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

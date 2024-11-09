@@ -47,6 +47,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean updateUserProfile(String email, String firstName, String lastName, int age, String gender) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_4, firstName);
+        contentValues.put(COL_5, lastName);
+        contentValues.put(COL_6, age);
+        contentValues.put(COL_7, gender);
+
+        int rowsUpdated = db.update(TABLE_NAME, contentValues, COL_2 + " = ?", new String[]{email});
+        db.close();
+        return rowsUpdated > 0;
+    }
+
+    // Method to update user's topic preference
+    public boolean updateUserTopic(String email, String topic) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_9, topic);
+
+        int result = db.update(TABLE_NAME, contentValues, "EMAIL = ?", new String[]{email});
+        db.close();
+        return result > 0;
+    }
+
+    // Method to update user's study time preference
+    public boolean updateUserStudyTime(String email, String studyTimePreference) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_8, studyTimePreference);
+
+        int result = db.update(TABLE_NAME, contentValues, "EMAIL = ?", new String[]{email});
+        db.close();
+        return result > 0;
+    }
+
+
+    public boolean updateUserStudyDifficultyLevel(String email, String difficultyLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_10, difficultyLevel);
+
+        int result = db.update(TABLE_NAME, contentValues, "EMAIL = ?", new String[]{email});
+        db.close();
+        return result > 0;
+    }
+
+
+
     //Insert new user when signup
     public boolean insertUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -33,7 +33,27 @@
             android:label="Log In" />
 
         <activity
+            android:name=".ui.UserProfileActivity"
+            android:exported="true"
+            android:label="Preference" />
+
+        <activity
             android:name=".ui.TopicPreferenceActivity"
+            android:exported="true"
+            android:label="Preference" />
+
+        <activity
+            android:name=".ui.StudyTimePreferenceActivity"
+            android:exported="true"
+            android:label="Preference" />
+
+        <activity
+            android:name=".ui.DifficultyPreferenceActivity"
+            android:exported="true"
+            android:label="Preference" />
+
+        <activity
+            android:name=".ui.HomeActivity"
             android:exported="true"
             android:label="Preference" />
     </application>
