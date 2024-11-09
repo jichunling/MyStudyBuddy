@@ -3,33 +3,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="#F9F9F9">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:layout_marginBottom="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:layout_height="48dp"
+        android:hint="Email"
+        android:textColor="#333333"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:textColor="#333333"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textViewPasswordRequirements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password must be at least 6 characters.\nInclude at least one uppercase letter.\nInclude at least one lowercase letter.\nInclude at least one digit."
+        android:textColor="#808080"
+        android:textSize="12sp"
+        android:layout_marginBottom="30dp"
+        android:paddingLeft="16dp" />
 
     <Button
         android:id="@+id/buttonSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
         android:backgroundTint="@color/primaryColor"
-        android:text="Signup" />
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/textViewLogin"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Login"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textViewAlreadyHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account?"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login Here!"
+            android:textSize="16sp"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

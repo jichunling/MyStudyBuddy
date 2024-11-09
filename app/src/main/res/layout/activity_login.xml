@@ -3,39 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="#F9F9F9">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:layout_marginBottom="40dp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
 
     <EditText
         android:id="@+id/editTextLoginEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:layout_height="48dp"
+        android:hint="Email"
+        android:textColor="#333333"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:textSize="16sp"/>
 
     <EditText
         android:id="@+id/editTextLoginPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:textColor="#333333"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textSize="16sp"/>
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="#FFFFFF"
         android:backgroundTint="@color/primaryColor"
-        android:text="Login" />
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/textViewLogin"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do not have an account?"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/buttonSignup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/primaryColor"
-        android:text="Signup" />
+        <TextView
+            android:id="@+id/textViewAlreadyHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do not have an account?"
+            android:textSize="16sp"
+            android:textColor="#333333"/>
+
+        <Button
+            android:id="@+id/buttonSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+            android:textSize="16sp"
+            android:textColor="@color/primaryColor"
+            android:background="?android:attr/selectableItemBackground" />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -33,7 +33,7 @@
             android:label="Log In" />
 
         <activity
-            android:name=".ui.PreferenceActivity"
+            android:name=".ui.TopicPreferenceActivity"
             android:exported="true"
             android:label="Preference" />
     </application>

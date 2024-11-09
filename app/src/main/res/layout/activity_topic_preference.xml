@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F9F9F9">
+
+    <!-- Progress Bar Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/textProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/4"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginEnd="10dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="4"
+            android:progress="1"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progress_bar"
+            style="@android:style/Widget.ProgressBar.Horizontal" />
+
+
+    </LinearLayout>
+
+    <!-- Question Section -->
+    <TextView
+        android:id="@+id/textQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is your preferred topic?"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="40dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupTopics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp">
+
+        <RadioButton
+            android:id="@+id/radioScience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Science"
+            android:textSize="16sp"
+            android:textColor="#333333" />
+
+        <RadioButton
+            android:id="@+id/radioArt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Art"
+            android:textSize="16sp"
+            android:textColor="#333333" />
+
+        <RadioButton
+            android:id="@+id/radioLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Language"
+            android:textSize="16sp"
+            android:textColor="#333333" />
+
+        <RadioButton
+            android:id="@+id/radioOthers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Others"
+            android:textSize="16sp"
+            android:textColor="#333333" />
+    </RadioGroup>
+
+    <!-- Next Button to proceed to the next question -->
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/primaryColor"
+        android:textSize="16sp" />
+
+</LinearLayout>
