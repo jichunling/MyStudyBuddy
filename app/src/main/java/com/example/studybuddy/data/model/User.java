@@ -12,17 +12,12 @@ public class User {
     private String lastName;
     private int age;
     private String gender;
-    private String preferredStudyTime;
+    private ArrayList<String> preferredStudyTime;
     private ArrayList<String> topicInterested;
     private String studyDifficultyLevel;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     public User(String email, String password, String firstName, String lastName, int age,
-                String gender, String preferredStudyTime, ArrayList<String> topicInterested,
+                String gender, ArrayList<String> preferredStudyTime, ArrayList<String> topicInterested,
                 String studyDifficultyLevel) {
         this.email = email;
         this.password = password;
@@ -35,15 +30,6 @@ public class User {
         this.studyDifficultyLevel = studyDifficultyLevel;
     }
 
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -52,23 +38,19 @@ public class User {
         return lastName;
     }
 
-    public int getAge() {
-        return age;
+    public String getFormattedStudyTime() {
+        return String.join(", ", preferredStudyTime);
     }
 
-    public String getGender() {
-        return gender;
+    public String getStudyDifficultyLevel() {
+        return studyDifficultyLevel;
     }
 
-    public String getPreferredStudyTime() {
+    public ArrayList<String> getPreferredStudyTime() {
         return preferredStudyTime;
     }
 
     public ArrayList<String> getTopicInterested() {
         return topicInterested;
-    }
-
-    public String getStudyDifficultyLevel() {
-        return studyDifficultyLevel;
     }
 }

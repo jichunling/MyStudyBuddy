@@ -1,7 +1,7 @@
-// DifficultyPreferenceActivity.java
 package com.example.studybuddy.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +16,6 @@ import com.example.studybuddy.data.database.DatabaseHelper;
 
 public class DifficultyPreferenceActivity extends AppCompatActivity {
 
-    private String email;
     private RadioGroup radioGroupDifficulty;
     private Button btnSaveDifficulty;
 
@@ -24,37 +23,36 @@ public class DifficultyPreferenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_preference);
-
-        email = getIntent().getStringExtra("USER_EMAIL");
-
         radioGroupDifficulty = findViewById(R.id.radioGroupDifficulty);
-        btnSaveDifficulty = findViewById(R.id.btnSaveDifficulty);
 
-        btnSaveDifficulty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroupDifficulty.getCheckedRadioButtonId();
-                RadioButton selectedRadioButton = findViewById(selectedId);
+        findViewById(R.id.btnSaveDifficulty).setOnClickListener(v -> saveDifficulty());
+    }
 
-                if (selectedRadioButton != null) {
-                    String difficultyLevel = selectedRadioButton.getText().toString();
+    private void saveDifficulty() {
+        int selectedId = radioGroupDifficulty.getCheckedRadioButtonId();
+        if (selectedId != -1) {
+            RadioButton selectedRadioButton = findViewById(selectedId);
+            String selectedDifficulty = selectedRadioButton.getText().toString();
 
-                    DatabaseHelper databaseHelper = new DatabaseHelper(DifficultyPreferenceActivity.this);
-                    boolean isUpdated = databaseHelper.updateUserStudyDifficultyLevel(email, difficultyLevel);
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            String userEmail = sharedPreferences.getString("userEmail", null);
 
-                    if (isUpdated) {
-                        Toast.makeText(DifficultyPreferenceActivity.this, "Difficulty level saved!", Toast.LENGTH_SHORT).show();
+            if (userEmail != null) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(this);
+                boolean isUpdated = databaseHelper.updateUserStudyDifficultyLevel(userEmail, selectedDifficulty);
 
-                        Intent intent = new Intent(DifficultyPreferenceActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(DifficultyPreferenceActivity.this, "Failed to save difficulty level.", Toast.LENGTH_SHORT).show();
-                    }
+                if (isUpdated) {
+                    Toast.makeText(this, "Study difficulty preferences updated successfully!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, MatchUserActivity.class));
+                    finish();
                 } else {
-                    Toast.makeText(DifficultyPreferenceActivity.this, "Please select a difficulty level.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to update preferences.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show();
             }
-        });
+        } else {
+            Toast.makeText(this, "No difficulty level selected.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

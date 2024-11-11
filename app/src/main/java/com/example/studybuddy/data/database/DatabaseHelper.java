@@ -1,15 +1,19 @@
 package com.example.studybuddy.data.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.studybuddy.data.model.User;
+
+import java.util.ArrayList;
 
 /**
  * Database creation and CRUD operations
@@ -134,5 +138,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return rowsUpdated > 0;
     }
+
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex(COL_2));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(COL_3));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex(COL_4));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex(COL_5));
+                @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COL_6));
+                @SuppressLint("Range") String gender = cursor.getString(cursor.getColumnIndex(COL_7));
+                @SuppressLint("Range") String studyTime = cursor.getString(cursor.getColumnIndex(COL_8));
+                @SuppressLint("Range") String topics = cursor.getString(cursor.getColumnIndex(COL_9));
+                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex(COL_10));
+
+                ArrayList<String> studyTimeList = new ArrayList<>();
+                if (studyTime != null && !studyTime.isEmpty()) {
+                    String[] studyTimeArray = studyTime.split(",");
+                    for (String time : studyTimeArray) {
+                        studyTimeList.add(time.trim());
+                    }
+                }
+
+                ArrayList<String> topicsList = new ArrayList<>();
+                if (topics != null && !topics.isEmpty()) {
+                    String[] topicsArray = topics.split(",");
+                    for (String topic : topicsArray) {
+                        topicsList.add(topic.trim());
+                    }
+                }
+
+                User user = new User(email, password, firstName, lastName, age, gender, studyTimeList, topicsList, difficulty);
+                users.add(user);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return users;
+    }
+
+
+
+
+
+
 }
 

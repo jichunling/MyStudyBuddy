@@ -53,9 +53,9 @@
             android:label="Preference" />
 
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".ui.MatchUserActivity"
             android:exported="true"
-            android:label="Preference" />
+            android:label="home" />
     </application>
 
 </manifest>

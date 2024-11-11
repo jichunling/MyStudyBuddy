@@ -75,14 +75,17 @@
             android:text="Hard"
             android:textSize="16sp"
             android:textColor="#333333" />
+
+        <Button
+            android:id="@+id/btnSaveDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Let's Start"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:background="#4CAF50" />
+
     </RadioGroup>
 
-    <Button
-        android:id="@+id/btnSaveDifficulty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Difficulty Level"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:background="#4CAF50" />
+
 </LinearLayout>
