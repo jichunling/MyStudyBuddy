@@ -30,6 +30,22 @@ public class User {
         this.studyDifficultyLevel = studyDifficultyLevel;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
     public String getFirstName() {
         return firstName;
     }

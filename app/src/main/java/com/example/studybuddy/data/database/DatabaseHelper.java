@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import com.example.studybuddy.data.model.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Database creation and CRUD operations
@@ -185,8 +187,138 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+    public ArrayList<User> getUsersWithSameTopics(List<String> currentUserTopics) {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE ");
+        for (int i = 0; i < currentUserTopics.size(); i++) {
+            queryBuilder.append(COL_9).append(" LIKE ?");
+            if (i < currentUserTopics.size() - 1) {
+                queryBuilder.append(" OR ");
+            }
+        }
+
+        String[] args = new String[currentUserTopics.size()];
+        for (int i = 0; i < currentUserTopics.size(); i++) {
+            args[i] = "%" + currentUserTopics.get(i).trim() + "%";
+        }
+
+        Cursor cursor = db.rawQuery(queryBuilder.toString(), args);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex(COL_2));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(COL_3));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex(COL_4));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex(COL_5));
+                @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COL_6));
+                @SuppressLint("Range") String gender = cursor.getString(cursor.getColumnIndex(COL_7));
+                @SuppressLint("Range") String studyTime = cursor.getString(cursor.getColumnIndex(COL_8));
+                @SuppressLint("Range") String topics = cursor.getString(cursor.getColumnIndex(COL_9));
+                @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex(COL_10));
+
+                ArrayList<String> studyTimeList = new ArrayList<>();
+                if (studyTime != null && !studyTime.isEmpty()) {
+                    String[] studyTimeArray = studyTime.split(",");
+                    for (String time : studyTimeArray) {
+                        studyTimeList.add(time.trim());
+                    }
+                }
+
+                ArrayList<String> topicsList = new ArrayList<>();
+                if (topics != null && !topics.isEmpty()) {
+                    String[] topicsArray = topics.split(",");
+                    for (String topic : topicsArray) {
+                        topicsList.add(topic.trim());
+                    }
+                }
+
+                User user = new User(email, password, firstName, lastName, age, gender, studyTimeList, topicsList, difficulty);
+                users.add(user);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return users;
+    }
 
 
+    public ArrayList<User> getUsersWithSameTopics(List<String> userTopics, String currentUserEmail) {
+        ArrayList<User> matchingUsers = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE ");
+        for (int i = 0; i < userTopics.size(); i++) {
+            queryBuilder.append(COL_9).append(" LIKE ?");
+            if (i < userTopics.size() - 1) {
+                queryBuilder.append(" OR ");
+            }
+        }
+        queryBuilder.append(" AND " + COL_2 + " != ?");
+
+        ArrayList<String> args = new ArrayList<>(userTopics.size());
+        for (String topic : userTopics) {
+            args.add("%" + topic + "%");
+        }
+        args.add(currentUserEmail);
+
+        Cursor cursor = db.rawQuery(queryBuilder.toString(), args.toArray(new String[0]));
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex(COL_2));
+                @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(COL_3));
+                @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex(COL_4));
+                @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex(COL_5));
+                @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COL_6));
+                @SuppressLint("Range") String gender = cursor.getString(cursor.getColumnIndex(COL_7));
+
+                @SuppressLint("Range")
+                String preferredStudyTimeString = cursor.getString(cursor.getColumnIndex(COL_8));
+                ArrayList<String> preferredStudyTime = new ArrayList<>();
+                if (preferredStudyTimeString != null && !preferredStudyTimeString.isEmpty()) {
+                    preferredStudyTime = new ArrayList<>(Arrays.asList(preferredStudyTimeString.split(",")));
+                }
+
+
+                @SuppressLint("Range")
+                String topicsString = cursor.getString(cursor.getColumnIndex(COL_9));
+                ArrayList<String> topicInterested = new ArrayList<>();
+                if (topicsString != null && !topicsString.isEmpty()) {
+                    topicInterested = new ArrayList<>(Arrays.asList(topicsString.split(",")));
+                }
+
+                @SuppressLint("Range") String studyDifficultyLevel = cursor.getString(cursor.getColumnIndex(COL_10));
+
+                matchingUsers.add(new User(email, password, firstName, lastName, age, gender, preferredStudyTime, topicInterested, studyDifficultyLevel));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+
+        return matchingUsers;
+    }
+
+
+    public ArrayList<String> getUserTopicsByEmail(String email) {
+        ArrayList<String> topics = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COL_9 + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") String topicsString = cursor.getString(cursor.getColumnIndex(COL_9));
+            topics = new ArrayList<>(Arrays.asList(topicsString.split(",")));
+            cursor.close();
+        }
+        db.close();
+
+        return topics;
+    }
 
 }
 
