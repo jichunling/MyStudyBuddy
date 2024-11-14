@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation (libs.material) //Add for password visibility
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
 }
