@@ -20,7 +20,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class OpenAIClient {
-    private static final String API_KEY = BuildConfig.API_KEY;
+    private static final String API_KEY="this is a fake api key for test";
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
     //    public static final MediaType JSON = MediaType.get("application/json");
     OkHttpClient client;

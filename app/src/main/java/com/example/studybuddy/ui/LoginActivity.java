@@ -27,6 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         editTextLoginPassword = findViewById(R.id.editTextLoginPassword);
         Button buttonLogin = findViewById(R.id.buttonLogin);
         Button buttonSignup = findViewById(R.id.buttonSignup);
+        Button genaiButton = findViewById(R.id.genai_button);
+
+        genaiButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, GenAIActivity.class);
+                startActivity(intent);
+        });
 
         buttonLogin.setOnClickListener(view -> {
             String email = editTextLoginEmail.getText().toString();
