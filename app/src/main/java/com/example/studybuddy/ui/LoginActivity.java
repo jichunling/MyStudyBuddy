@@ -47,7 +47,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                 //Check if the user is already set up
-                //Discussion: what if the user has already entered some info. How to avoid duplicate requesting info
+                //Discussion Needed:
+                //what if the user has already entered some info. How to avoid duplicate requesting info
                 boolean isSetUp = dbHelper.isSetUp(email);
                 if (!isSetUp) {
                     Intent intent = new Intent(LoginActivity.this, UserProfileActivity.class);
