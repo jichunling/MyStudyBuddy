@@ -46,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
+                //Check if the user is already set up
+
+//                boolean isSetUp = dbHelper.validateSetUp(first);
+//                if (isSetUp) {
                 Intent intent = new Intent(LoginActivity.this, UserProfileActivity.class);
                 startActivity(intent);
                 finish();
