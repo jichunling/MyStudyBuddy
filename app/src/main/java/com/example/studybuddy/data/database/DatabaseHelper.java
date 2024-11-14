@@ -333,8 +333,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         @SuppressLint("Range") String studyTime = cursor.getString(cursor.getColumnIndex(COL_8));
         @SuppressLint("Range") String topics = cursor.getString(cursor.getColumnIndex(COL_9));
         @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex(COL_10));
-        return !firstName.isEmpty() && !lastName.isEmpty() && (age < 18 || gender.isEmpty())
-                && studyTime.isEmpty() && topics.isEmpty() && difficulty.isEmpty();
+        return !firstName.isEmpty() && !lastName.isEmpty() && age >= 18 && !gender.isEmpty()
+                && !studyTime.isEmpty() && !topics.isEmpty() && !difficulty.isEmpty();
     }
 
 

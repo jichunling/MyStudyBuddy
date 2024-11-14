@@ -31,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
         Button buttonSignup = findViewById(R.id.buttonSignup);
         TextView textViewLogin = findViewById(R.id.textViewLogin);
 
+
         buttonSignup.setOnClickListener(view -> {
             String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString();
@@ -61,5 +62,9 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+
+
+
     }
 }

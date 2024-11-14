@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Check if the user is already set up
                 //Discussion Needed:
-                //what if the user has already entered some info. How to avoid duplicate requesting info
+                //what if the user has already entered some info. How to avoid requesting existence info
                 boolean isSetUp = dbHelper.isSetUp(email);
                 if (!isSetUp) {
                     Intent intent = new Intent(LoginActivity.this, UserProfileActivity.class);
