@@ -321,21 +321,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Check if the user is already set up
-    @SuppressLint("Recycle")
     public boolean isSetUp(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = " SELECT " + COL_3 + COL_4 + COL_5 + COL_6 + COL_7 + COL_8 + COL_9 + COL_10  + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?";
+        //String query = " SELECT " + COL_3 + COL_4 + COL_5 + COL_6 + COL_7 + COL_8 + COL_9 + COL_10  + " FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?";
+        String query = " SELECT * FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{email});
-        @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex(COL_4));
-        @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex(COL_5));
-        @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COL_6));
-        @SuppressLint("Range") String gender = cursor.getString(cursor.getColumnIndex(COL_7));
-        @SuppressLint("Range") String studyTime = cursor.getString(cursor.getColumnIndex(COL_8));
-        @SuppressLint("Range") String topics = cursor.getString(cursor.getColumnIndex(COL_9));
-        @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex(COL_10));
-        return !firstName.isEmpty() && !lastName.isEmpty() && age >= 18 && !gender.isEmpty()
-                && !studyTime.isEmpty() && !topics.isEmpty() && !difficulty.isEmpty();
+        boolean alreadySetUp = false;
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") String firstName = cursor.getString(cursor.getColumnIndex(COL_4));
+            @SuppressLint("Range") String lastName = cursor.getString(cursor.getColumnIndex(COL_5));
+            @SuppressLint("Range") int age = cursor.getInt(cursor.getColumnIndex(COL_6));
+            @SuppressLint("Range") String gender = cursor.getString(cursor.getColumnIndex(COL_7));
+            @SuppressLint("Range") String studyTime = cursor.getString(cursor.getColumnIndex(COL_8));
+            @SuppressLint("Range") String topics = cursor.getString(cursor.getColumnIndex(COL_9));
+            @SuppressLint("Range") String difficulty = cursor.getString(cursor.getColumnIndex(COL_10));
+            if (firstName != null && lastName!= null && age >= 18 && gender!= null
+                    && studyTime!= null && topics != null && difficulty != null) {
+                alreadySetUp = true;
+            }
+            cursor.close();
+            db.close();
+        }
+        return alreadySetUp;
+
     }
+
 
 
 }

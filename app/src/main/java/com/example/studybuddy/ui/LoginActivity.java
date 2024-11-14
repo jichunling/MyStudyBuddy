@@ -55,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+
+
+//                Intent intent = new Intent(LoginActivity.this, UserProfileActivity.class);
+//                startActivity(intent);
+//                finish();
+
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
