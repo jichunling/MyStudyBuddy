@@ -150,8 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Music"
-                android:textSize="16sp"
-                android:textColor="#333333" />
+                android:textColor="#333333"
+                android:textSize="16sp" />
 
             <CheckBox
                 android:id="@+id/checkArt"
@@ -161,12 +161,13 @@
                 android:textSize="16sp"
                 android:textColor="#333333" />
 
+
         </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@color/primaryColor"
@@ -177,6 +178,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myScrollView"
         android:gravity="center_horizontal"/>
+
 
 
 </LinearLayout>
