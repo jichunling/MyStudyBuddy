@@ -1,8 +1,12 @@
 package com.example.studybuddy.ui;
 
+import static android.content.ClipData.newIntent;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +29,13 @@ public class MatchUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_user);
+
+        Button genaiButton=findViewById(R.id.genai_button);
+
+        genaiButton.setOnClickListener(v->{
+            Intent intent=new Intent(MatchUserActivity.this, GenAIActivity.class);
+            startActivity(intent);
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
