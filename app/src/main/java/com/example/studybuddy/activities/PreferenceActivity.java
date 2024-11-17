@@ -1,4 +1,4 @@
-package com.example.studybuddy.ui;
+package com.example.studybuddy.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.example.studybuddy.ui;
+package com.example.studybuddy.activities;
 
 import android.view.LayoutInflater;
 import android.view.View;

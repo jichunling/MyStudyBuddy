@@ -15,7 +15,7 @@
         android:theme="@style/Theme.StudyBuddy"
         tools:targetApi="31">
         <activity
-            android:name=".ui.WelcomeActivity"
+            android:name=".activities.WelcomeActivity"
             android:exported="true"
             android:label="Welcome">
             <intent-filter>
@@ -25,42 +25,42 @@
         </activity>
 
         <activity
-            android:name=".ui.SignupActivity"
+            android:name=".activities.SignupActivity"
             android:exported="true"
             android:label="Sign Up" />
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true"
             android:label="Log In" />
 
         <activity
-            android:name=".ui.UserProfileActivity"
+            android:name=".activities.UserProfileActivity"
             android:exported="true"
             android:label="Preference" />
 
         <activity
-            android:name=".ui.TopicPreferenceActivity"
+            android:name=".activities.TopicPreferenceActivity"
             android:exported="true"
             android:label="Preference" />
 
         <activity
-            android:name=".ui.StudyTimePreferenceActivity"
+            android:name=".activities.StudyTimePreferenceActivity"
             android:exported="true"
             android:label="Preference" />
 
         <activity
-            android:name=".ui.DifficultyPreferenceActivity"
+            android:name=".activities.DifficultyPreferenceActivity"
             android:exported="true"
             android:label="Preference" />
 
         <activity
-            android:name=".ui.MatchUserActivity"
+            android:name=".activities.MatchUserActivity"
             android:exported="true"
             android:label="home" />
 
         <activity
-            android:name=".ui.GenAIActivity"
+            android:name=".activities.GenAIActivity"
             android:exported="true"
             android:label="genai" />
     </application>

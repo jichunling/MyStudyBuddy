@@ -1,6 +1,4 @@
-package com.example.studybuddy.ui;
-
-import static androidx.core.content.ContextCompat.startActivity;
+package com.example.studybuddy.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
