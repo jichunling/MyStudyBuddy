@@ -3,4 +3,8 @@
     <color name="primaryColor">#ad79e1</color>
     <color name="secondaryColor">#0099f2</color>
     <color name="backgroundColor">#ffffff</color>
+    <color name="leftChatBGColor">#1E88E5</color>
+    <color name="rightChatBGColor">#7CB342</color>
+
+
 </resources>
